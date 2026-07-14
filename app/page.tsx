@@ -1,65 +1,108 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { useEffect, useState, useRef } from 'react';
+import { Chessboard } from 'react-chessboard';
+import { useChessGame } from '../hooks/useChessGame';
+import { useStockfish } from '../hooks/useStockfish';
+import EvalBar from '../components/EvalBar';
+import AdvicePanel from '../components/AdvicePanel';
+import { calculateEvalDelta, classifyMove } from '../lib/moveClassifier';
+import GameSummary, { MoveHistoryItem } from '../components/GameSummary';
+
+export default function ChessCoachApp() {
+  const { game, fen, lastMove, makeMove } = useChessGame();
+  const { evaluation, isMate, bestMove, isCalculating, analyzePosition } = useStockfish();
+  const [moveHistory, setMoveHistory] = useState<MoveHistoryItem[]>([]);
+  const [coachAdvice, setCoachAdvice] = useState<string>('');
+  const [isCoachLoading, setIsCoachLoading] = useState<boolean>(false);
+  
+  // Track the evaluation before the move was made. Standard starting eval is roughly +0.2.
+  const prevEvalRef = useRef<number>(0.2);
+
+  useEffect(() => {
+    analyzePosition(fen);
+  }, [fen, analyzePosition]);
+
+  useEffect(() => {
+    async function fetchAdvice() {
+      // Ensure calculation is done and we have valid data
+      if (isCalculating || !lastMove || evaluation === null) return;
+
+      // game.turn() returns the color to move NEXT. 
+      // So the color that JUST moved is the opposite.
+      const colorThatMoved = game.turn() === 'w' ? 'b' : 'w';
+      
+      const delta = calculateEvalDelta({
+        evalBefore: prevEvalRef.current,
+        evalAfter: evaluation,
+        colorThatMoved
+      });
+
+      const moveClassification = classifyMove(delta);
+      
+      setMoveHistory(prev => [
+        ...prev,
+        {
+          moveNumber: prev.length + 1,
+          san: lastMove.san,
+          evaluation: evaluation,
+          classification: moveClassification
+        }
+      ]);
+
+      setIsCoachLoading(true);
+      try {
+        const response = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fen,
+            lastMove: lastMove.san,
+            evaluationDelta: delta,
+            moveClassification,
+            bestMove
+          }),
+        });
+        
+        const data = await response.json();
+        setCoachAdvice(data.advice);
+        
+        // Update the previous evaluation reference for the next turn
+        prevEvalRef.current = evaluation;
+        
+      } catch (error) {
+        console.error('Error fetching advice', error);
+      } finally {
+        setIsCoachLoading(false);
+      }
+    }
+
+    fetchAdvice();
+  }, [isCalculating, fen, lastMove, evaluation, bestMove, game]);
+
+  function onDrop(sourceSquare: string, targetSquare: string) {
+    return makeMove({
+      from: sourceSquare,
+      to: targetSquare,
+      promotion: 'q', 
+    });
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex h-screen bg-gray-100 p-8">
+      <div className="flex-none mr-8">
+        <EvalBar evaluation={evaluation} isMate={isMate} />
+      </div>
+
+      <div className="flex-grow max-w-2xl flex items-center justify-center">
+        <div className="w-full shadow-2xl rounded-sm overflow-hidden">
+          <Chessboard {...({ position: fen, onPieceDrop: onDrop } as any)} />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
+
+      <div className="flex-none w-96 ml-8">
+        <AdvicePanel advice={coachAdvice} isLoading={isCoachLoading} />
+      </div>
     </div>
   );
 }
