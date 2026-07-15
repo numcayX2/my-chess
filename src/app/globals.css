@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  /* Minimalist palette */
+  --color-board-dark: #233d4d;
+  --color-board-light: #eaecf0;
+  --bg-base: #000000;
+  --bg-panel: #0a0d10;
+  --bg-panel-raised: #233d4d;
+  --border-subtle: #233d4d;
+  --foreground: #eaecf0;
+  --foreground-dim: #8b96a1;
+  --accent-brass: #fe7f2d;
+  --accent-brass-dim: #c96420;
+  --accent-good: #eaecf0;
+  --accent-warn: #fe7f2d;
+  --accent-bad: #fe7f2d;
+  --accent-blunder: #fe7f2d;
+}
+
+@theme inline {
+  --color-background: var(--bg-base);
+  --color-foreground: var(--foreground);
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-noto-thai);
+  --font-mono: var(--font-mono-notation);
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--foreground);
+  font-family: var(--font-noto-thai), "Noto Sans Thai", sans-serif;
+}
+
+::selection {
+  background: var(--accent-brass);
+  color: #000000;
+}
+
+.felt-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+}
+
+.notation {
+  font-family: var(--font-mono-notation), "JetBrains Mono", monospace;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise-in {
+  animation: rise-in 0.25s ease-out;
+}
+
+* {
+  scrollbar-color: var(--accent-brass-dim) var(--bg-panel);
+  scrollbar-width: thin;
+}
