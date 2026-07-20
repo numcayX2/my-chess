@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const OLLAMA_URL = process.env.OLLAMA_URL ?? "http://localhost:11434";
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:14b";
+const GEMINI_MODEL = process.env.GEMINI_MODEL ?? "gemini-3.1-flash-lite";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 function evalToThai(evalCp: number | null, mate: number | null) {
   if (mate !== null) {
@@ -40,39 +40,37 @@ export async function POST(req: NextRequest) {
 
 โปรดอธิบายให้ผู้เล่นเข้าใจว่า:
 1. การเดินนี้ดีหรือไม่ดีอย่างไร
-2. ถ้าไม่ใช่หมากที่ดีที่สุด ควรเดินอะไรแทนและเพราะเหตุใดจึงดีกว่า (พูดถึงแนวคิดเชิงยุทธศาสตร์ เช่น การควบคุมกลางกระดาน การพัฒนาหมาก ความปลอดภัยของคิง ฯลฯ)
+2. ถ้าไม่ใช่หมากที่ดีที่สุด ควรเดินอะไรแทนและเพราะเหตุใดจึงดีกว่า
 3. คำแนะนำสั้นๆ สำหรับตาต่อไป`;
 
-    const res = await fetch(`${OLLAMA_URL}/api/generate`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: OLLAMA_MODEL,
-        prompt,
-        stream: false,
-        options: { temperature: 0.4 },
-      }),
-      // Ollama can be slow on local hardware — give it room.
-      signal: AbortSignal.timeout(60_000),
-    });
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+      },
+    );
 
     if (!res.ok) {
       const text = await res.text();
       return NextResponse.json(
-        { error: `Ollama ตอบกลับผิดพลาด (${res.status}): ${text}` },
-        { status: 502 }
+        { error: `Gemini ตอบกลับผิดพลาด (${res.status}): ${text}` },
+        { status: 502 },
       );
     }
 
     const data = await res.json();
-    return NextResponse.json({ explanation: data.response ?? "" });
+    const explanation = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+
+    return NextResponse.json({ explanation });
   } catch (err) {
     const message = err instanceof Error ? err.message : "unknown error";
     return NextResponse.json(
       {
-        error: `เรียก Ollama ไม่สำเร็จ: ${message}. ตรวจสอบว่า Ollama รันอยู่ที่ ${OLLAMA_URL} และดึงโมเดล ${OLLAMA_MODEL} ไว้แล้ว (ollama pull ${OLLAMA_MODEL})`,
+        error: `เรียก Gemini ไม่สำเร็จ: ${message}. ตรวจสอบ GEMINI_API_KEY ใน .env.local`,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
