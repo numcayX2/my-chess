@@ -1,66 +1,409 @@
 @import "tailwindcss";
 
 :root {
-  /* Minimalist palette */
-  --color-board-dark: #233d4d;
-  --color-board-light: #eaecf0;
-  --bg-base: #000000;
-  --bg-panel: #0a0d10;
-  --bg-panel-raised: #233d4d;
-  --border-subtle: #233d4d;
-  --foreground: #eaecf0;
-  --foreground-dim: #8b96a1;
-  --accent-brass: #fe7f2d;
-  --accent-brass-dim: #c96420;
-  --accent-good: #eaecf0;
-  --accent-warn: #fe7f2d;
-  --accent-bad: #fe7f2d;
-  --accent-blunder: #fe7f2d;
+  /* ── Urban Cyber-Retro Palette ─────────────────────── */
+  --color-board-dark: #3A3F47;
+  --color-board-light: #E2E6EC;
+  
+  --bg-base: #121316;
+  --bg-panel: #22252A;
+  --bg-panel-raised: rgba(58, 63, 71, 0.6);
+  --border-subtle: rgba(58, 63, 71, 0.9);
+  --border-heavy: #3A3F47;
+  
+  --foreground: #E2E6EC;
+  --foreground-dim: rgba(226, 230, 236, 0.5);
+  --foreground-muted: rgba(226, 230, 236, 0.3);
+  
+  /* Signal Accents */
+  --accent-hazard: #FFD600;
+  --accent-crimson: #FF2A55;
+  --accent-orange: #FF6B00;
+  --accent-cyan: #00E5FF;
+  --accent-lime: #39FF14;
+  
+  /* Legacy mappings for compatibility */
+  --accent-brass: #FFD600;
+  --accent-brass-dim: #FF6B00;
+  --accent-good: #39FF14;
+  --accent-warn: #FF6B00;
+  --accent-bad: #FF2A55;
+  --accent-blunder: #FF2A55;
+  
+  /* Hazard stripe pattern */
+  --hazard-stripe: repeating-linear-gradient(
+    45deg,
+    #FFD600 0px,
+    #FFD600 8px,
+    #121316 8px,
+    #121316 16px
+  );
 }
 
 @theme inline {
   --color-background: var(--bg-base);
   --color-foreground: var(--foreground);
   --font-display: var(--font-fraunces);
-  --font-body: var(--font-noto-thai);
-  --font-mono: var(--font-mono-notation);
+  --font-body: var(--font-chakra);
+  --font-mono: var(--font-jetbrains);
+  --font-pixel: var(--font-pixel);
+}
+
+/* ── Base ─────────────────────────────────────────── */
+html {
+  background: var(--bg-base);
 }
 
 body {
   background: var(--bg-base);
   color: var(--foreground);
-  font-family: var(--font-noto-thai), "Noto Sans Thai", sans-serif;
+  font-family: var(--font-chakra), "Chakra Petch", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: var(--accent-brass);
-  color: #000000;
+  background: var(--accent-hazard);
+  color: var(--bg-base);
 }
 
-.felt-panel {
+/* ── Scrollbar ────────────────────────────────────── */
+* {
+  scrollbar-color: var(--accent-orange) var(--bg-panel);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
   background: var(--bg-panel);
-  border: 1px solid var(--border-subtle);
 }
 
-.notation {
-  font-family: var(--font-mono-notation), "JetBrains Mono", monospace;
+::-webkit-scrollbar-thumb {
+  background: var(--accent-orange);
+  border-radius: 0;
 }
 
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hazard);
+}
+
+/* ── Tactical Panel System ────────────────────────── */
+.tactical-panel {
+  background: var(--bg-panel);
+  border: 2px solid var(--border-heavy);
+  position: relative;
+}
+
+.tactical-panel::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  height: 3px;
+  background: var(--hazard-stripe);
+  opacity: 0.8;
+}
+
+.tactical-panel-accent {
+  border-color: var(--accent-hazard);
+}
+
+.tactical-panel-accent::before {
+  background: var(--accent-hazard);
+  opacity: 1;
+}
+
+.tactical-panel-crimson {
+  border-color: var(--accent-crimson);
+}
+
+.tactical-panel-crimson::before {
+  background: var(--accent-crimson);
+  opacity: 1;
+}
+
+/* ── Framing Brackets ─────────────────────────────── */
+.bracket-frame {
+  position: relative;
+}
+
+.bracket-frame::before,
+.bracket-frame::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--accent-hazard);
+  pointer-events: none;
+}
+
+.bracket-frame::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.bracket-frame::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+/* ── Hazard Stripes Utility ───────────────────────── */
+.hazard-stripes {
+  background: var(--hazard-stripe);
+}
+
+.hazard-stripes-vertical {
+  background: repeating-linear-gradient(
+    -45deg,
+    #FFD600 0px,
+    #FFD600 6px,
+    #121316 6px,
+    #121316 12px
+  );
+}
+
+/* ── CRT Scanline Overlay ─────────────────────────── */
+.crt-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Glitch Text Effect Base ──────────────────────── */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* ── Segmented Progress ───────────────────────────── */
+.segmented-bar {
+  display: flex;
+  gap: 2px;
+}
+
+.segment {
+  flex: 1;
+  height: 100%;
+  background: var(--bg-panel-raised);
+  transition: background 0.15s ease-out;
+}
+
+.segment.active {
+  background: var(--accent-hazard);
+}
+
+.segment.active-warn {
+  background: var(--accent-orange);
+}
+
+.segment.active-danger {
+  background: var(--accent-crimson);
+}
+
+/* ── Animations ───────────────────────────────────── */
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-.animate-rise-in {
-  animation: rise-in 0.25s ease-out;
+
+@keyframes scanline-shift {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
 }
 
-* {
-  scrollbar-color: var(--accent-brass-dim) var(--bg-panel);
-  scrollbar-width: thin;
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes hazard-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 22px 0; }
+}
+
+@keyframes glitch-1 {
+  0%, 100% { opacity: 0; transform: translate(0); }
+  20% { opacity: 0.8; transform: translate(-2px, 1px); }
+  40% { opacity: 0; transform: translate(2px, -1px); }
+  60% { opacity: 0.6; transform: translate(-1px, 2px); }
+  80% { opacity: 0; transform: translate(1px, -2px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { opacity: 0; transform: translate(0); }
+  20% { opacity: 0.6; transform: translate(2px, -1px); }
+  40% { opacity: 0; transform: translate(-2px, 1px); }
+  60% { opacity: 0.8; transform: translate(1px, 2px); }
+  80% { opacity: 0; transform: translate(-1px, -2px); }
+}
+
+.animate-rise-in {
+  animation: rise-in 0.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-blink {
+  animation: blink 1s steps(2) infinite;
+}
+
+.animate-hazard-scroll {
+  animation: hazard-scroll 0.5s linear infinite;
+}
+
+.animate-glitch-1 {
+  animation: glitch-1 0.3s ease-in-out;
+}
+
+.animate-glitch-2 {
+  animation: glitch-2 0.3s ease-in-out;
+}
+
+/* ── Shine Effect ─────────────────────────────────── */
+@keyframes shine {
+  from {
+    transform: translateX(-250%) rotate(12deg);
+  }
+  to {
+    transform: translateX(500%) rotate(12deg);
+  }
+}
+
+/* ── Status Indicators ────────────────────────────── */
+.status-dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+}
+
+.status-dot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  background: currentColor;
+  animation: blink 1.5s steps(2) infinite;
+}
+
+.status-dot.ping::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1px solid currentColor;
+  opacity: 0;
+  animation: ping-ring 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping-ring {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* ── Tactical Button Base ─────────────────────────── */
+.tactical-btn {
+  position: relative;
+  background: var(--bg-panel);
+  border: 2px solid var(--border-heavy);
+  color: var(--foreground);
+  font-family: var(--font-chakra), sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease-out;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% 100%,
+    8px 100%,
+    0 calc(100% - 8px)
+  );
+}
+
+.tactical-btn:hover {
+  border-color: var(--accent-hazard);
+  background: var(--bg-panel-raised);
+  transform: translateY(-1px);
+}
+
+.tactical-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.tactical-btn-primary {
+  background: var(--accent-hazard);
+  border-color: var(--accent-hazard);
+  color: var(--bg-base);
+}
+
+.tactical-btn-primary:hover {
+  background: var(--foreground);
+  border-color: var(--foreground);
+  box-shadow: 0 0 20px rgba(255, 214, 0, 0.3);
+}
+
+.tactical-btn-crimson {
+  background: var(--accent-crimson);
+  border-color: var(--accent-crimson);
+  color: var(--bg-base);
+}
+
+/* ── Notation Typography ──────────────────────────── */
+.notation {
+  font-family: var(--font-jetbrains), "JetBrains Mono", monospace;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.pixel-text {
+  font-family: var(--font-pixel), "VT323", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Responsive Utilities ─────────────────────────── */
+@media (max-width: 1024px) {
+  .tactical-panel::before {
+    height: 2px;
+  }
 }

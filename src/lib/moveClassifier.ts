@@ -52,11 +52,11 @@ export const CLASS_LABEL_TH: Record<MoveClass, string> = {
 };
 
 export const CLASS_COLOR: Record<MoveClass, string> = {
-  best: "text-[#EAECF0]",
-  excellent: "text-[#EAECF0]",
-  good: "text-[#EAECF0]/70",
-  inaccuracy: "text-[#FE7F2D]/60",
-  mistake: "text-[#FE7F2D]/85",
-  blunder: "text-[#FE7F2D] font-semibold",
-  book: "text-[#EAECF0]/40",
+  best: "text-[#1B1B1E]",
+  excellent: "text-[#1B1B1E]",
+  good: "text-[#1B1B1E]/70",
+  inaccuracy: "text-[#6320EE]/55",
+  mistake: "text-[#6320EE]/80",
+  blunder: "text-[#6320EE] font-semibold",
+  book: "text-[#1B1B1E]/40",
 };
