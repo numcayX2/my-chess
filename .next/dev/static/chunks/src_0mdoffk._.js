@@ -1200,10 +1200,14 @@ function Board() {
     const playerColor = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$gameStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGameStore"])({
         "Board.useGameStore[playerColor]": (s)=>s.playerColor
     }["Board.useGameStore[playerColor]"]);
+    const game = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$gameStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGameStore"])({
+        "Board.useGameStore[game]": (s)=>s.game
+    }["Board.useGameStore[game]"]);
     const { onDrop } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useGameEngine$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGameEngine"])();
     const boardRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const frameRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    // Board entry animation with GSAP
+    // ตาราง state สำหรับ click-to-move: ช่องที่เลือกอยู่ + ช่องปลายทางที่เดินได้
+    const [selectedSquare, setSelectedSquare] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGSAP"])({
         "Board.useGSAP": ()=>{
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].fromTo(frameRef.current, {
@@ -1222,7 +1226,20 @@ function Board() {
     }["Board.useGSAP"], {
         scope: frameRef
     });
-    // ปรับ Type ของ targetSquare ให้รองรับ string | null ตามที่ react-chessboard กำหนด
+    const flashBoard = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "Board.useCallback[flashBoard]": ()=>{
+            if (!frameRef.current) return;
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].fromTo(frameRef.current, {
+                boxShadow: "0 0 0px rgba(255, 214, 0, 0)"
+            }, {
+                boxShadow: "0 0 25px rgba(255, 214, 0, 0.5)",
+                duration: 0.15,
+                ease: "power2.out",
+                yoyo: true,
+                repeat: 1
+            });
+        }
+    }["Board.useCallback[flashBoard]"], []);
     const handleDrop = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "Board.useCallback[handleDrop]": ({ sourceSquare, targetSquare })=>{
             if (!targetSquare) return false;
@@ -1230,21 +1247,134 @@ function Board() {
                 sourceSquare,
                 targetSquare
             });
-            if (result && frameRef.current) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].fromTo(frameRef.current, {
-                    boxShadow: "0 0 0px rgba(255, 214, 0, 0)"
-                }, {
-                    boxShadow: "0 0 25px rgba(255, 214, 0, 0.5)",
-                    duration: 0.15,
-                    ease: "power2.out",
-                    yoyo: true,
-                    repeat: 1
-                });
-            }
+            if (result) flashBoard();
+            setSelectedSquare(null);
             return result;
         }
     }["Board.useCallback[handleDrop]"], [
-        onDrop
+        onDrop,
+        flashBoard
+    ]);
+    // คลิกเลือกหมาก / คลิกช่องปลายทางเพื่อเดิน (แทน/เสริมการลาก)
+    const handleSquareClick = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "Board.useCallback[handleSquareClick]": ({ square })=>{
+            const isMyTurn = game.turn() === playerColor;
+            if (!isMyTurn) return;
+            if (selectedSquare) {
+                if (square === selectedSquare) {
+                    setSelectedSquare(null);
+                    return;
+                }
+                const result = onDrop({
+                    sourceSquare: selectedSquare,
+                    targetSquare: square
+                });
+                if (result) {
+                    flashBoard();
+                    setSelectedSquare(null);
+                    return;
+                }
+            }
+            const piece = game.get(square);
+            if (piece && piece.color === playerColor) {
+                setSelectedSquare(square);
+            } else {
+                setSelectedSquare(null);
+            }
+        }
+    }["Board.useCallback[handleSquareClick]"], [
+        game,
+        playerColor,
+        selectedSquare,
+        onDrop,
+        flashBoard
+    ]);
+    // ช่องที่เดินได้จากช่องที่เลือกอยู่ (สำหรับวาดจุด)
+    const legalTargets = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "Board.useMemo[legalTargets]": ()=>{
+            if (!selectedSquare) return [];
+            return game.moves({
+                square: selectedSquare,
+                verbose: true
+            }).map({
+                "Board.useMemo[legalTargets]": (m)=>m.to
+            }["Board.useMemo[legalTargets]"]);
+        }
+    }["Board.useMemo[legalTargets]"], [
+        game,
+        selectedSquare,
+        fen
+    ]);
+    // ช่องของกษัตริย์ที่กำลังโดนรุกอยู่ (ถ้ามี)
+    const checkSquare = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "Board.useMemo[checkSquare]": ()=>{
+            if (!game.inCheck()) return null;
+            const board = game.board();
+            for(let r = 0; r < 8; r++){
+                for(let c = 0; c < 8; c++){
+                    const cell = board[r][c];
+                    if (cell && cell.type === "k" && cell.color === game.turn()) return cell.square;
+                }
+            }
+            return null;
+        }
+    }["Board.useMemo[checkSquare]"], [
+        game,
+        fen
+    ]);
+    // ช่องต้นทาง/ปลายทางของตาล่าสุด
+    const lastMoveSquares = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "Board.useMemo[lastMoveSquares]": ()=>{
+            const history = game.history({
+                verbose: true
+            });
+            const last = history[history.length - 1];
+            return last ? [
+                last.from,
+                last.to
+            ] : [];
+        }
+    }["Board.useMemo[lastMoveSquares]"], [
+        game,
+        fen
+    ]);
+    const squareStyles = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "Board.useMemo[squareStyles]": ()=>{
+            const styles = {};
+            for (const sq of lastMoveSquares){
+                styles[sq] = {
+                    backgroundColor: "color-mix(in srgb, var(--accent-hazard) 22%, transparent)"
+                };
+            }
+            if (checkSquare) {
+                styles[checkSquare] = {
+                    backgroundColor: "color-mix(in srgb, var(--accent-crimson) 55%, transparent)",
+                    boxShadow: "inset 0 0 0 2px var(--accent-crimson)"
+                };
+            }
+            if (selectedSquare) {
+                styles[selectedSquare] = {
+                    ...styles[selectedSquare],
+                    backgroundColor: "color-mix(in srgb, var(--accent-hazard) 40%, transparent)"
+                };
+            }
+            for (const sq of legalTargets){
+                const isCapture = !!game.get(sq);
+                styles[sq] = {
+                    ...styles[sq],
+                    backgroundImage: isCapture ? "radial-gradient(circle, transparent 58%, color-mix(in srgb, var(--accent-lime) 65%, transparent) 60%, transparent 72%)" : "radial-gradient(circle, color-mix(in srgb, var(--accent-lime) 55%, transparent) 22%, transparent 24%)",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat"
+                };
+            }
+            return styles;
+        }
+    }["Board.useMemo[squareStyles]"], [
+        lastMoveSquares,
+        checkSquare,
+        selectedSquare,
+        legalTargets,
+        game
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex flex-col items-center w-full",
@@ -1261,35 +1391,35 @@ function Board() {
                         className: "absolute -top-1 -left-1 w-3.5 h-3.5 border-t-2 border-l-2 border-[var(--accent-hazard)] z-10 pointer-events-none"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Board.tsx",
-                        lineNumber: 76,
+                        lineNumber: 185,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute -top-1 -right-1 w-3.5 h-3.5 border-t-2 border-r-2 border-[var(--accent-hazard)] z-10 pointer-events-none"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Board.tsx",
-                        lineNumber: 77,
+                        lineNumber: 186,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute -bottom-1 -left-1 w-3.5 h-3.5 border-b-2 border-l-2 border-[var(--accent-hazard)] z-10 pointer-events-none"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Board.tsx",
-                        lineNumber: 78,
+                        lineNumber: 187,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute -bottom-1 -right-1 w-3.5 h-3.5 border-b-2 border-r-2 border-[var(--accent-hazard)] z-10 pointer-events-none"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Board.tsx",
-                        lineNumber: 79,
+                        lineNumber: 188,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute top-0 left-0 right-0 h-[2px] hazard-stripes opacity-70 z-10 pointer-events-none"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Board.tsx",
-                        lineNumber: 82,
+                        lineNumber: 189,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1299,7 +1429,7 @@ function Board() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Board.tsx",
-                        lineNumber: 85,
+                        lineNumber: 190,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1309,6 +1439,8 @@ function Board() {
                             options: {
                                 position: fen,
                                 onPieceDrop: handleDrop,
+                                onSquareClick: handleSquareClick,
+                                squareStyles,
                                 boardOrientation: playerColor === "w" ? "white" : "black",
                                 darkSquareStyle: {
                                     backgroundColor: "var(--color-board-dark)"
@@ -1321,18 +1453,18 @@ function Board() {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/Board.tsx",
-                            lineNumber: 95,
+                            lineNumber: 199,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Board.tsx",
-                        lineNumber: 94,
+                        lineNumber: 198,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Board.tsx",
-                lineNumber: 67,
+                lineNumber: 177,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1347,7 +1479,7 @@ function Board() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/Board.tsx",
-                        lineNumber: 111,
+                        lineNumber: 216,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1355,24 +1487,25 @@ function Board() {
                         children: playerColor === "w" ? "ORIENTATION // WHITE" : "ORIENTATION // BLACK"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Board.tsx",
-                        lineNumber: 114,
+                        lineNumber: 219,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Board.tsx",
-                lineNumber: 110,
+                lineNumber: 215,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Board.tsx",
-        lineNumber: 66,
+        lineNumber: 176,
         columnNumber: 5
     }, this);
 }
-_s(Board, "uoeidYqPpRbSy6TSDg5pEsMv2ds=", false, function() {
+_s(Board, "VFT7Wr9V7PsgQoLC3v3vhXUN1mk=", false, function() {
     return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$gameStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGameStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$gameStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGameStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$gameStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGameStore"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useGameEngine$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGameEngine"],
