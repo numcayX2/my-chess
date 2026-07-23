@@ -392,7 +392,7 @@ function SetupModal() {
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: "text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground-dim)]",
+                                            className: "font-display text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground-dim)]",
                                             children: "เลือกสีที่จะเล่น"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/SetupModal.tsx",
@@ -451,7 +451,7 @@ function SetupModal() {
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "font-bold text-sm text-[var(--foreground)] uppercase tracking-wide",
+                                                    className: "font-display font-bold text-sm text-[var(--foreground)] uppercase tracking-wide",
                                                     children: opt.label
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/SetupModal.tsx",
@@ -459,7 +459,7 @@ function SetupModal() {
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                    className: "text-[10px] text-[var(--foreground-dim)] mt-1 leading-tight",
+                                                    className: "font-display text-[10px] text-[var(--foreground-dim)] mt-1 leading-tight",
                                                     children: opt.sub
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/SetupModal.tsx",
@@ -497,7 +497,7 @@ function SetupModal() {
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: "text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground-dim)]",
+                                            className: "font-display text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground-dim)]",
                                             children: "ระดับความยาก"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/SetupModal.tsx",
@@ -514,7 +514,7 @@ function SetupModal() {
                                     className: "flex items-baseline justify-between mb-4 px-1",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "pixel-text text-[10px] text-[var(--foreground-dim)]",
+                                            className: "font-display pixel-text text-[10px] text-[var(--foreground-dim)]",
                                             children: "DIFFICULTY_RATING"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/SetupModal.tsx",
@@ -638,7 +638,7 @@ function SetupModal() {
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "relative z-20 tracking-[0.15em] font-black uppercase",
+                                    className: "font-display relative z-20 tracking-[0.15em] font-black uppercase",
                                     children: "[ เริ่มเกม ]"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SetupModal.tsx",
@@ -649,44 +649,6 @@ function SetupModal() {
                         }, void 0, true, {
                             fileName: "[project]/src/components/SetupModal.tsx",
                             lineNumber: 264,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "mt-6 flex items-start gap-3 px-4 py-3 border border-[var(--border-heavy)] bg-[var(--bg-panel)]",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "pixel-text text-[var(--accent-orange)] text-lg leading-none mt-0.5",
-                                    children: "!"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/SetupModal.tsx",
-                                    lineNumber: 284,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-[11px] text-[var(--foreground-dim)] leading-relaxed",
-                                    children: [
-                                        "คำแนะนำจาก AI ต้องใช้",
-                                        " ",
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-medium text-[var(--accent-cyan)]",
-                                            children: "Ollama"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/SetupModal.tsx",
-                                            lineNumber: 287,
-                                            columnNumber: 15
-                                        }, this),
-                                        " ",
-                                        "รันอยู่ในเครื่อง (localhost:11434) พร้อมโมเดลที่ดึงไว้แล้ว"
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/src/components/SetupModal.tsx",
-                                    lineNumber: 285,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/components/SetupModal.tsx",
-                            lineNumber: 283,
                             columnNumber: 11
                         }, this)
                     ]
@@ -887,22 +849,27 @@ function classifyMove(mover, cpBefore, mateBefore, cpAfter, mateAfter, wasBestMo
     return "blunder";
 }
 const CLASS_LABEL_TH = {
-    best: "เดินดีที่สุด",
-    excellent: "ดีเยี่ยม",
+    brilliant: "ยอดเยี่ยมที่สุด",
+    great: "เยี่ยมมาก",
+    best: "ดีที่สุด",
+    excellent: "เยี่ยม",
     good: "ดี",
     inaccuracy: "ไม่แม่นยำ",
-    mistake: "พลาด",
-    blunder: "พลาดร้ายแรง",
-    book: "หมากเปิด"
+    mistake: "ผิดพลาด",
+    blunder: "ผิดพลาดร้ายแรง"
 };
 const CLASS_COLOR = {
-    best: "text-[#1B1B1E]",
-    excellent: "text-[#1B1B1E]",
-    good: "text-[#1B1B1E]/70",
-    inaccuracy: "text-[#6320EE]/55",
-    mistake: "text-[#6320EE]/80",
-    blunder: "text-[#6320EE] font-semibold",
-    book: "text-[#1B1B1E]/40"
+    // ── กลุ่มยอดเยี่ยม (Cyan / Phosphor Lime Highlights) ────────────────
+    brilliant: "border-[var(--accent-cyan)] text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/15 shadow-[0_0_12px_rgba(0,229,255,0.3)] font-black",
+    great: "border-[var(--accent-lime)] text-[var(--accent-lime)] bg-[var(--accent-lime)]/15 font-black",
+    best: "border-[var(--accent-lime)] text-[var(--accent-lime)] bg-[var(--accent-lime)]/10 font-bold",
+    excellent: "border-[var(--accent-lime)] text-[var(--accent-lime)] bg-transparent font-bold",
+    // ── กลุ่มปานกลาง / ปกติ (Off-white Neutral) ────────────────────────
+    good: "border-[var(--foreground-dim)] text-[var(--foreground)] bg-transparent font-medium",
+    // ── กลุ่มเตือนภัย / พลาด (Warning Orange & Crimson) ─────────────
+    inaccuracy: "border-[var(--accent-orange)] text-[var(--accent-orange)] bg-[var(--accent-orange)]/10 font-bold",
+    mistake: "border-[var(--accent-crimson)] text-[var(--accent-crimson)] bg-[var(--accent-crimson)]/15 font-bold",
+    blunder: "border-[var(--accent-crimson)] text-black bg-[var(--accent-crimson)] font-black animate-pulse"
 };
 }),
 "[project]/src/lib/chessUtils.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
@@ -1765,7 +1732,7 @@ function AdvicePanel() {
                     }, this),
                     lastPlayerPoint?.classification && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                         ref: badgeRef,
-                        className: `notation text-[10px] px-2.5 py-1 border-2 ${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$moveClassifier$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CLASS_COLOR"][lastPlayerPoint.classification]}`,
+                        className: `notation text-[10px] uppercase tracking-wider px-2.5 py-0.5 border-2 transition-colors duration-150 ${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$moveClassifier$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CLASS_COLOR"][lastPlayerPoint.classification]}`,
                         style: {
                             clipPath: "polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))"
                         },
@@ -1792,7 +1759,7 @@ function AdvicePanel() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/AdvicePanel.tsx",
-                        lineNumber: 101,
+                        lineNumber: 104,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1800,13 +1767,13 @@ function AdvicePanel() {
                         children: lastPlayerPoint.san
                     }, void 0, false, {
                         fileName: "[project]/src/components/AdvicePanel.tsx",
-                        lineNumber: 104,
+                        lineNumber: 107,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/AdvicePanel.tsx",
-                lineNumber: 100,
+                lineNumber: 103,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1824,7 +1791,7 @@ function AdvicePanel() {
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/AdvicePanel.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 118,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1834,7 +1801,7 @@ function AdvicePanel() {
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/AdvicePanel.tsx",
-                                    lineNumber: 116,
+                                    lineNumber: 119,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1844,13 +1811,13 @@ function AdvicePanel() {
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/AdvicePanel.tsx",
-                                    lineNumber: 117,
+                                    lineNumber: 120,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/AdvicePanel.tsx",
-                            lineNumber: 114,
+                            lineNumber: 117,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1858,13 +1825,13 @@ function AdvicePanel() {
                             children: "ANALYZING_POSITION..."
                         }, void 0, false, {
                             fileName: "[project]/src/components/AdvicePanel.tsx",
-                            lineNumber: 119,
+                            lineNumber: 122,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/AdvicePanel.tsx",
-                    lineNumber: 113,
+                    lineNumber: 116,
                     columnNumber: 11
                 }, this) : advice.text ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     ref: textRef,
@@ -1872,7 +1839,7 @@ function AdvicePanel() {
                     children: advice.text
                 }, void 0, false, {
                     fileName: "[project]/src/components/AdvicePanel.tsx",
-                    lineNumber: 124,
+                    lineNumber: 127,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex flex-col items-center justify-center h-full gap-2 text-center",
@@ -1882,7 +1849,7 @@ function AdvicePanel() {
                             children: ">_"
                         }, void 0, false, {
                             fileName: "[project]/src/components/AdvicePanel.tsx",
-                            lineNumber: 132,
+                            lineNumber: 135,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1890,18 +1857,18 @@ function AdvicePanel() {
                             children: "เดินหมากตาแรกของคุณ แล้วโค้ช AI จะอธิบายให้ทันที"
                         }, void 0, false, {
                             fileName: "[project]/src/components/AdvicePanel.tsx",
-                            lineNumber: 133,
+                            lineNumber: 136,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/AdvicePanel.tsx",
-                    lineNumber: 131,
+                    lineNumber: 134,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/AdvicePanel.tsx",
-                lineNumber: 111,
+                lineNumber: 114,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1912,7 +1879,7 @@ function AdvicePanel() {
                         children: "AI_COACH_ENGINE"
                     }, void 0, false, {
                         fileName: "[project]/src/components/AdvicePanel.tsx",
-                        lineNumber: 142,
+                        lineNumber: 145,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1920,13 +1887,13 @@ function AdvicePanel() {
                         children: advice.loading ? "PROCESSING" : "ONLINE"
                     }, void 0, false, {
                         fileName: "[project]/src/components/AdvicePanel.tsx",
-                        lineNumber: 145,
+                        lineNumber: 148,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/AdvicePanel.tsx",
-                lineNumber: 141,
+                lineNumber: 144,
                 columnNumber: 7
             }, this)
         ]

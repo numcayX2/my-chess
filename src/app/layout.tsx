@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Fraunces, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google";
+import { Prompt, Noto_Sans_Thai, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+const promptFont = Prompt({
+  variable: "--font-prompt",
+  subsets: ["thai", "latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
 });
 
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="th"
-      className={`${fraunces.variable} ${notoThai.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${promptFont.variable} ${notoThai.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

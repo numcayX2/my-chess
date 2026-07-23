@@ -146,7 +146,7 @@ export default function SetupModal() {
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-4">
               <span className="w-1 h-4 bg-[var(--accent-hazard)]" />
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground-dim)]">
+              <p className="font-display text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground-dim)]">
                 เลือกสีที่จะเล่น
               </p>
             </div>
@@ -185,10 +185,10 @@ export default function SetupModal() {
                     />
                   </div>
                   
-                  <span className="font-bold text-sm text-[var(--foreground)] uppercase tracking-wide">
+                  <span className="font-display font-bold text-sm text-[var(--foreground)] uppercase tracking-wide">
                     {opt.label}
                   </span>
-                  <p className="text-[10px] text-[var(--foreground-dim)] mt-1 leading-tight">
+                  <p className="font-display text-[10px] text-[var(--foreground-dim)] mt-1 leading-tight">
                     {opt.sub}
                   </p>
                 </button>
@@ -200,13 +200,13 @@ export default function SetupModal() {
           <div className="mb-12">
             <div className="flex items-center gap-2 mb-4">
               <span className="w-1 h-4 bg-[var(--accent-crimson)]" />
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground-dim)]">
+              <p className="font-display text-xs font-bold uppercase tracking-[0.2em] text-[var(--foreground-dim)]">
                 ระดับความยาก
               </p>
             </div>
             
             <div className="flex items-baseline justify-between mb-4 px-1">
-              <span className="pixel-text text-[10px] text-[var(--foreground-dim)]">
+              <span className="font-display pixel-text text-[10px] text-[var(--foreground-dim)]">
                 DIFFICULTY_RATING
               </span>
               <div ref={eloRef} className="flex items-baseline gap-2">
@@ -274,20 +274,10 @@ export default function SetupModal() {
             {/* Hover flash */}
             <span className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-150" />
             
-            <span className="relative z-20 tracking-[0.15em] font-black uppercase">
+            <span className="font-display relative z-20 tracking-[0.15em] font-black uppercase">
               [ เริ่มเกม ]
             </span>
           </button>
-
-          {/* Footer Warning */}
-          <div className="mt-6 flex items-start gap-3 px-4 py-3 border border-[var(--border-heavy)] bg-[var(--bg-panel)]">
-            <span className="pixel-text text-[var(--accent-orange)] text-lg leading-none mt-0.5">!</span>
-            <p className="text-[11px] text-[var(--foreground-dim)] leading-relaxed">
-              คำแนะนำจาก AI ต้องใช้{" "}
-              <span className="font-medium text-[var(--accent-cyan)]">Ollama</span>{" "}
-              รันอยู่ในเครื่อง (localhost:11434) พร้อมโมเดลที่ดึงไว้แล้ว
-            </p>
-          </div>
         </div>
       </div>
     </div>

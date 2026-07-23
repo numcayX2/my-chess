@@ -885,10 +885,6 @@
     bottom: calc(var(--spacing) * -1);
   }
 
-  .-bottom-8 {
-    bottom: calc(var(--spacing) * -8);
-  }
-
   .bottom-0 {
     bottom: 0;
   }
@@ -1149,10 +1145,6 @@
 
   .w-3\.5 {
     width: calc(var(--spacing) * 3.5);
-  }
-
-  .w-4 {
-    width: calc(var(--spacing) * 4);
   }
 
   .w-12 {
@@ -1696,7 +1688,7 @@
   }
 
   .font-display {
-    font-family: var(--font-fraunces);
+    font-family: var(--font-prompt), "Prompt", sans-serif;
   }
 
   .text-2xl {
@@ -1908,10 +1900,6 @@
 
   .opacity-25 {
     opacity: .25;
-  }
-
-  .opacity-30 {
-    opacity: .3;
   }
 
   .opacity-60 {

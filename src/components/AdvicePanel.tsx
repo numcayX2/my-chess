@@ -85,10 +85,13 @@ export default function AdvicePanel() {
         {lastPlayerPoint?.classification && (
           <span
             ref={badgeRef}
-            className={`notation text-[10px] px-2.5 py-1 border-2 ${
+            className={`notation text-[10px] uppercase tracking-wider px-2.5 py-0.5 border-2 transition-colors duration-150 ${
               CLASS_COLOR[lastPlayerPoint.classification]
             }`}
-            style={{ clipPath: "polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))" }}
+            style={{
+              clipPath:
+                "polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))",
+            }}
           >
             {CLASS_LABEL_TH[lastPlayerPoint.classification]}
           </span>

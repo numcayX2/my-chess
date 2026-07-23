@@ -43,7 +43,7 @@
 @theme inline {
   --color-background: var(--bg-base);
   --color-foreground: var(--foreground);
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-prompt), "Prompt", sans-serif;
   --font-body: var(--font-chakra);
   --font-mono: var(--font-jetbrains);
   --font-pixel: var(--font-pixel);
